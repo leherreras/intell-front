@@ -12,10 +12,6 @@ Start the app by running npm start from the command line in the project root fol
 
 http://localhost:4200.
 
-Install
-
-`npm install jspdf --save`
-
 This frontend is connecting with the next URL in the backend:
 
 http://localhost:5000

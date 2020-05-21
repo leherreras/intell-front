@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "angular-9-registration-login-example": {
+    "intell-front": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
@@ -66,18 +66,18 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "angular-9-registration-login-example:build"
+            "browserTarget": "intell-front:build"
           },
           "configurations": {
             "production": {
-              "browserTarget": "angular-9-registration-login-example:build:production"
+              "browserTarget": "intell-front:build:production"
             }
           }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "angular-9-registration-login-example:build"
+            "browserTarget": "intell-front:build"
           }
         },
         "test": {
@@ -114,15 +114,15 @@
           "builder": "@angular-devkit/build-angular:protractor",
           "options": {
             "protractorConfig": "e2e/protractor.conf.js",
-            "devServerTarget": "angular-9-registration-login-example:serve"
+            "devServerTarget": "intell-front:serve"
           },
           "configurations": {
             "production": {
-              "devServerTarget": "angular-9-registration-login-example:serve:production"
+              "devServerTarget": "intell-front:serve:production"
             }
           }
         }
       }
     }},
-  "defaultProject": "angular-9-registration-login-example"
+  "defaultProject": "intell-front"
 }
