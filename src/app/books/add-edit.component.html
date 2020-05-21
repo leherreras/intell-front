@@ -1,0 +1,28 @@
+﻿<h1 *ngIf="isAddMode">Add Book</h1>
+<h1 *ngIf="!isAddMode">Edit Book</h1>
+<form [formGroup]="form" (ngSubmit)="onSubmit()">
+    <div class="form-row">
+        <div class="form-group col">
+            <label for="title">Title</label>
+            <input type="text" formControlName="title" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.title.errors }" />
+            <div *ngIf="submitted && f.title.errors" class="invalid-feedback">
+                <div *ngIf="f.title.errors.required">Title is required</div>
+            </div>
+        </div>
+        <div class="form-group col">
+            <label for="publication_date">Publication Date</label>
+            <input type="date" formControlName="publication_date" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.publication_date.errors }" />
+            <div *ngIf="submitted && f.publication_date.errors" class="invalid-feedback">
+                <div *ngIf="f.publication_date.errors.required">Publication Date is required</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <button [disabled]="loading" class="btn btn-primary">
+            <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
+            Save
+        </button>
+        <a routerLink="/books" class="btn btn-link">Cancel</a>
+    </div>
+</form>

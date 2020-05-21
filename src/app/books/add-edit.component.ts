@@ -3,7 +3,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { first } from 'rxjs/operators';
 
-import { AccountService, AlertService } from '@app/_services';
+import { BookService, AlertService } from '@app/_services';
 
 @Component({ templateUrl: 'add-edit.component.html' })
 export class AddEditComponent implements OnInit {
@@ -17,7 +17,7 @@ export class AddEditComponent implements OnInit {
         private formBuilder: FormBuilder,
         private route: ActivatedRoute,
         private router: Router,
-        private accountService: AccountService,
+        private bookService: BookService,
         private alertService: AlertService
     ) {}
 
@@ -25,26 +25,17 @@ export class AddEditComponent implements OnInit {
         this.id = this.route.snapshot.params['id'];
         this.isAddMode = !this.id;
 
-        // password not required in edit mode
-        const passwordValidators = [Validators.minLength(6)];
-        if (this.isAddMode) {
-            passwordValidators.push(Validators.required);
-        }
-
         this.form = this.formBuilder.group({
-            first_name: ['', Validators.required],
-            last_name: ['', Validators.required],
-            username: ['', Validators.required],
-            password: ['', passwordValidators]
+            title: ['', Validators.required],
+            publication_date: ['', Validators.required]
         });
 
         if (!this.isAddMode) {
-            this.accountService.getById(this.id)
+            this.bookService.getById(this.id)
                 .pipe(first())
                 .subscribe(x => {
-                    this.f.first_name.setValue(x.first_name);
-                    this.f.last_name.setValue(x.last_name);
-                    this.f.username.setValue(x.username);
+                    this.f.title.setValue(x.title);
+                    this.f.publication_date.setValue(x.publication_date);
                 });
         }
     }
@@ -63,34 +54,33 @@ export class AddEditComponent implements OnInit {
             return;
         }
 
-        this.loading = true;
-        if (this.isAddMode) {
-            this.createUser();
+        this.loading = true; if (this.isAddMode) {
+            this.createBook();
         } else {
-            this.updateUser();
+            this.updateBook();
         }
     }
 
-    private createUser() {
-        this.accountService.register(this.form.value)
-            .pipe(first())
-            .subscribe(
-                data => {
-                    this.alertService.success('User added successfully', { keepAfterRouteChange: true });
-                    this.router.navigate(['.', { relativeTo: this.route }]);
-                },
-                error => {
-                    this.alertService.error(error);
-                    this.loading = false;
-                });
+    private createBook() {
+    this.bookService.add(this.form.value)
+        .pipe(first())
+        .subscribe(
+            data => {
+                this.alertService.success('User added successfully', { keepAfterRouteChange: true });
+                this.router.navigate(['.', { relativeTo: this.route }]);
+            },
+            error => {
+                this.alertService.error(error);
+                this.loading = false;
+            });
     }
 
-    private updateUser() {
-        this.accountService.update(this.id, this.form.value)
+    private updateBook() {
+        this.bookService.update(this.id, this.form.value)
             .pipe(first())
             .subscribe(
                 data => {
-                    this.alertService.success('Update successful', { keepAfterRouteChange: true });
+                    this.alertService.success('Update book successful', { keepAfterRouteChange: true });
                     this.router.navigate(['..', { relativeTo: this.route }]);
                 },
                 error => {

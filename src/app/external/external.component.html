@@ -1,0 +1,28 @@
+﻿<h1>External</h1>
+<a (click)="downloadPdf()" class="btn btn-sm btn-success mb-2">Download PDF</a>
+<br>
+
+<div id="content" #content>
+  <h1>People</h1>
+  <h2>Count: {{count}}</h2>
+
+  <div class="row">
+      <div *ngFor="let result of results" class="card border-dark col-sm-3" style="width: 18rem;">
+          <div class="card-header">
+              <h5>Nombre: {{result.name}}</h5>
+          </div>
+          <div class="card-body">
+              <p class="card-text">Altura: {{result.height}}</p>
+              <p class="card-text">Peso: {{result.mass}}</p>
+              <p class="card-text">Color de cabello: {{result.hair_color}}</p>
+              <p class="card-text">Color de piel: {{result.skin_color}}</p>
+              <p class="card-text">Fecha de nacimiento: {{result.birth_year}}</p>
+              <p class="card-text">Genero: {{result.gender}}</p>
+
+          </div>
+          <div class="card-footer">
+              <a href="{{result.homeworld}}" class="btn btn-primary">Detalle de la vivienda</a>
+          </div>
+      </div>
+  </div>
+</div>
